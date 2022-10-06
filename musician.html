@@ -4,72 +4,96 @@
     <title>Basic java script and interact with the DOM </title>
 </head>
 <body>
-
-<h2>Musician guess by Pooja Sura</h2>
-
-<form>
-    <label for="form_name">Enter the secret musician name:</label>
-
-    <input type ="password" id="form_name" name="form_name" min=10 max=50 step=2 value="John Lennon"> <br>
-
-    <label for="form_guess">Guess the musician:</label>
-
-    <input type ="text" id="form_guess" name="form_guess" autofocus> <br>
-
-    <input type="button" onclick="checkGuess()" value="Check the Guess">
-</form>
-<script> 
-var correct = 0  
-var wrong = 0   
-    function checkGuess(){
-        console.log("Getting form values")
-        Name = document.getElementById("form_name").value
-        Guess = document.getElementById("form_guess").value
+    <div class="container p-5 my-5 bg-info text-white"> 
+        <h1 style="text-align:center">Musician guess by Pooja Sura</h1>
     
-         out = document.getElementById("result")
-            if(Name==Guess){
-                correct = correct+1;
+    <h2 style="text-align:center">Getting Input</h2>
+    </div>
+    <!-- Part 3 : Create the input form and build the response code. -->
+    <div class="container">
+        <form>
+            <div class="form-group">
+                <label for="form2_musician">Enter the secret musician name</label>
+                <input type="password" class="form-control" id="form2_musician" name="form2_musician" min=10 max=50 step=2
+                    value="John Lennon"><br>
+            </div><br>
+
+            <div class="form-group">
+                <label for="form2_guess">Guess the musician</label>
+                <input type="text" class="form-control" id="form2_guess" name="form2_guess" min=10 max=50 step=2><br>
+            </div><br>
+            
+            <input type="button" class="btn btn-success" onclick="checkGuess()" value="Check the guess">
+        </form>
+        
+        <p id="results"></p>
+    </div>
+
+    <script>
+        let correct=0
+        let wrong=0
+        let try_correct = 0
+        let try_wrong = 0 
+        function checkGuess() {
+            secret = document.getElementById("form2_musician").value
+            guess = document.getElementById("form2_guess").value
+        
+            result = document.getElementById("results")
+            if(secret == guess){
+                correct+=1
+                try_correct=try_correct + 1
                 alert("You got it right");
-                out.innerHTML = correct;
-            } else {
-                wrong = wrong +1;
-                alert("Wrong musician");
-                out.innerHTML = wrong;
-                if(wrong>=3){
-                     WrongAlert()
+                document.getElementById("results").innerHTML = "Correct guesses are " + correct + " and Wrong guesses are " + wrong
+            } else { 
+                wrong+=1
+                try_wrong= try_wrong + 1
+                alert("Wrong Musician");
+                if(try_correct==0 && try_wrong%3==0 && try_wrong!=0) {
+                    alert("Sorry, game over.");
+                    wrong = 0  
+                    correct = 0
+                } else if(try_correct>0){
+                    try_correct=0
+                    try_wrong=0
                 }
+                document.getElementById("results").innerHTML = "Correct guesses are " + correct + " and Wrong guesses are " + wrong   
             }
         }
-</script>
-<div class="container">
-    <img src="ulysses-butterfly.jpg" class="img-fluid" height="100px"width="100" alt="ulysses-butterfly" id="images" onclick="swapImage()">
-  </div>
-  <script>
-    let useImage = 1
-    function swapImage(){
-    switch(useImage){
-        case 1:
-            document.getElementById("images").src="S1.jpg";
-            useImage+=1;
-            break;
-            case 2:
-            document.getElementById("images").src="ulysses-butterfly.jpg";
-            useImage+=1;
-            break;
-            case 3:
-            document.getElementById("images").src="Red beetle.jpg";
-            useImage=1;
-            break;
-        }
-    }
-</script>
-<div class="container">
-    <ul class="pager">
-        <li class="next">
-            <a href="discount.html">Discount Page</a>
-        </li>
-    </ul>
-</div>
+    </script>
+    <br>
+
+    <!-- Part 4 : Swapping the images onclicking it. -->
+
+     <div class="container">
+        <img src="Red beetle.jpg" class="bordered mx-auto d-block" width="100px" height="100px" alt="Red beetle" id="images" onclick="swapImage()">
+    </div>
+    <script>
+            let useImage = 1
+            function swapImage(){
+            switch(useImage){
+                case 1:
+                    document.getElementById("images").src="Elephant hawk moth.jpg";
+                    useImage+=1;
+                    break;
+                    case 2:
+                    document.getElementById("images").src="Red beetle.jpg";
+                    useImage+=1;
+                    break;
+                    case 3:
+                    document.getElementById("images").src="Ulysses Butterfly.jpg";
+                    useImage=1;
+                    break;
+                }
+            }
+        </script>
+        <div class="container">
+            <ul class="pager">
+                <li class="next">
+                    <a href="discount.html">Discount Page</a>
+                </li>
+            </ul>
+        </div>
+       
 
 </body>
 </html> 
